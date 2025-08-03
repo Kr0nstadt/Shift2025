@@ -3,12 +3,12 @@ package config;
 import java.util.List;
 
 public class Config {
-    private static String outputPath;
-    private static String filePrefix;
-    private static boolean appendMode;
-    private static boolean shortStatistics;
-    private static boolean fullStatistics;
-    private static List<String> inputFiles;
+    private String outputPath;
+    private String filePrefix;
+    private boolean appendMode;
+    private boolean shortStatistics;
+    private boolean fullStatistics;
+    private List<String> inputFiles;
 
     public Config(String outputPath, String filePrefix, boolean appendMode, boolean shortStatistics, boolean fullStatistics, List<String> inputFiles) {
         this.outputPath = outputPath;
@@ -19,27 +19,27 @@ public class Config {
         this.inputFiles = inputFiles;
     }
 
-    public static String getOutputPath() {
+    public String getOutputPath() {
         return outputPath;
     }
 
-    public static String getFilePrefix() {
+    public String getFilePrefix() {
         return filePrefix;
     }
 
-    public static boolean isAppendMode() {
+    public boolean isAppendMode() {
         return appendMode;
     }
 
-    public static boolean isShortStatistics() {
+    public boolean isShortStatistics() {
         return shortStatistics;
     }
 
-    public static boolean isFullStatistics() {
+    public boolean isFullStatistics() {
         return fullStatistics;
     }
 
-    public static List<String> getInputFiles() {
+    public List<String> getInputFiles() {
         return inputFiles;
     }
 }
