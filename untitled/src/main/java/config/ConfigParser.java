@@ -2,59 +2,74 @@ package config;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class ConfigParser implements IArgumentParser<Config> {
+    private static final Set<String> VALID_FLAGS = Set.of("-o", "-p", "-a", "-s", "-f", "--");
     private final String[] args;
 
     public ConfigParser(String[] args) {
         this.args = args;
     }
+
     @Override
-    public Config parse() {
+    public Config parse() throws IllegalArgumentException {
         String outputPath = "";
         String filePrefix = "";
         boolean appendMode = false;
         boolean shortStatistics = false;
         boolean fullStatistics = false;
         List<String> inputFiles = new ArrayList<>();
+        boolean treatAllAsFiles = false;
 
         for (int i = 0; i < args.length; i++) {
             String arg = args[i];
-            switch (arg) {
-                case "-o":
-                    if (i + 1 < args.length) {
-                        outputPath = args[++i];
-                    } else {
-                        throw new IllegalArgumentException("Не указан путь для -o");
-                    }
-                    break;
-                case "-p":
-                    if (i + 1 < args.length) {
-                        filePrefix = args[++i];
-                    } else {
-                        throw new IllegalArgumentException("Не указан префикс для -p");
-                    }
-                    break;
-                case "-a":
-                    appendMode = true;
-                    break;
-                case "-s":
-                    shortStatistics = true;
-                    break;
-                case "-f":
-                    fullStatistics = true;
-                    break;
-                default:
-                    if (!arg.startsWith("-")) {
-                        inputFiles.add(arg);
-                    } else {
+
+            if (treatAllAsFiles) {
+                inputFiles.add(arg);
+                continue;
+            }
+
+            if (arg.startsWith("-")) {
+                if (arg.equals("--")) {
+                    treatAllAsFiles = true;
+                    continue;
+                }
+
+                if (!VALID_FLAGS.contains(arg)) {
+                    if (!isLikelyFilename(arg)) {
                         throw new IllegalArgumentException("Неизвестная опция: " + arg);
                     }
-            }
-        }
+                    inputFiles.add(arg);
+                    continue;
+                }
 
-        if (shortStatistics && fullStatistics) {
-            throw new IllegalArgumentException("Можно выбрать только один тип статистики (-s или -f)");
+                switch (arg) {
+                    case "-o":
+                        outputPath = getRequiredValue(args, i++, "Не указан путь для -o");
+                        break;
+                    case "-p":
+                        filePrefix = getRequiredValue(args, i++, "Не указан префикс для -p");
+                        break;
+                    case "-a":
+                        appendMode = true;
+                        break;
+                    case "-s":
+                        if (fullStatistics) {
+                            throw new IllegalArgumentException("Нельзя использовать -s и -f одновременно");
+                        }
+                        shortStatistics = true;
+                        break;
+                    case "-f":
+                        if (shortStatistics) {
+                            throw new IllegalArgumentException("Нельзя использовать -s и -f одновременно");
+                        }
+                        fullStatistics = true;
+                        break;
+                }
+            } else {
+                inputFiles.add(arg);
+            }
         }
 
         if (inputFiles.isEmpty()) {
@@ -62,5 +77,18 @@ public class ConfigParser implements IArgumentParser<Config> {
         }
 
         return new Config(outputPath, filePrefix, appendMode, shortStatistics, fullStatistics, inputFiles);
+    }
+
+    private String getRequiredValue(String[] args, int currentIndex, String errorMessage) {
+        if (currentIndex + 1 >= args.length || args[currentIndex + 1].startsWith("-")) {
+            throw new IllegalArgumentException(errorMessage);
+        }
+        return args[currentIndex + 1];
+    }
+
+    private boolean isLikelyFilename(String arg) {
+        return arg.contains(".") &&
+                !arg.matches("^-\\w+$") &&
+                !arg.matches("^-\\d+$");
     }
 }
