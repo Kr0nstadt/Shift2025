@@ -8,7 +8,6 @@ public class IntegerValidator implements DataValidator {
 
     @Override
     public boolean isValid(String value) {
-        if (value == null) return false;
         return value.matches(INTEGER_REGEX);
     }
 

@@ -21,12 +21,17 @@ public class DataEntryParser {
             return new StringData("");
         }
 
+        String trimmed = value.trim();
+        if (trimmed.isEmpty()) {
+            return new StringData("");
+        }
+
         for (DataValidator validator : validators) {
-            if (validator.isValid(value)) {
-                return validator.parse(value);
+            if (validator.isValid(trimmed)) {
+                return validator.parse(trimmed);
             }
         }
 
-        throw new IllegalStateException("No suitable validator found for: " + value);
+        return new StringData(trimmed);
     }
 }
