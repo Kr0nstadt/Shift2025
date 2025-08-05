@@ -8,7 +8,6 @@ public class StringValidator implements DataValidator {
     public boolean isValid(String value) {
         return true;
     }
-
     @Override
     public DataEntry parse(String value) {
         return new StringData(value);

@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Objects;
+
 public class FloatData extends DataEntry {
     private final double value;
 

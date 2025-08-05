@@ -1,7 +1,6 @@
 package input;
 
 import model.DataEntry;
-import model.DataType;
 import valid.DataEntryParser;
 
 import java.io.BufferedReader;
@@ -11,15 +10,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ConcurrentFileReader implements DataFileReader {
+    private final DataEntryParser parser;
+
+    public ConcurrentFileReader(DataEntryParser parser) {
+        this.parser = parser;
+    }
+
     public List<DataEntry> readFile(String filePath) throws IOException {
-        DataEntryParser parser = new DataEntryParser();
         List<DataEntry> entries = new ArrayList<>();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                DataEntry entry = parser.parse(line.trim());
-                entries.add(entry);
+                line = line.trim();
+                if (!line.isEmpty()) {
+                    DataEntry entry = parser.parse(line);
+                    entries.add(entry);
+                }
             }
         }
 
