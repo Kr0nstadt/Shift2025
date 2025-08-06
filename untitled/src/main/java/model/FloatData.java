@@ -13,4 +13,5 @@ public class FloatData extends DataEntry {
     public DataType getType() { return DataType.FLOAT; }
     @Override
     public String getValueAsString() { return String.valueOf(value); }
+    public Double getValue(){return value;}
 }

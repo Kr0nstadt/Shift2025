@@ -13,4 +13,5 @@ public class IntegerData extends DataEntry {
     public DataType getType() { return DataType.INTEGER; }
     @Override
     public String getValueAsString() { return String.valueOf(value); }
+    public long getValue(){return value;};
 }

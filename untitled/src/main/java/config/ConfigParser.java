@@ -38,7 +38,7 @@ public class ConfigParser implements IArgumentParser<Config> {
 
                 if (!VALID_FLAGS.contains(arg)) {
                     if (!isLikelyFilename(arg)) {
-                        throw new IllegalArgumentException("Неизвестная опция: " + arg);
+                        throw new IllegalArgumentException("Unknown option: " + arg);
                     }
                     inputFiles.add(arg);
                     continue;
@@ -46,23 +46,23 @@ public class ConfigParser implements IArgumentParser<Config> {
 
                 switch (arg) {
                     case "-o":
-                        outputPath = getRequiredValue(args, i++, "Не указан путь для -o");
+                        outputPath = getRequiredValue(args, i++, "No path specified for -o");
                         break;
                     case "-p":
-                        filePrefix = getRequiredValue(args, i++, "Не указан префикс для -p");
+                        filePrefix = getRequiredValue(args, i++, "No prefix specified for -p");
                         break;
                     case "-a":
                         appendMode = true;
                         break;
                     case "-s":
                         if (fullStatistics) {
-                            throw new IllegalArgumentException("Нельзя использовать -s и -f одновременно");
+                            throw new IllegalArgumentException("You can't use -s and -f at the same time.");
                         }
                         shortStatistics = true;
                         break;
                     case "-f":
                         if (shortStatistics) {
-                            throw new IllegalArgumentException("Нельзя использовать -s и -f одновременно");
+                            throw new IllegalArgumentException("You can't use -s and -f at the same time.");
                         }
                         fullStatistics = true;
                         break;
@@ -73,7 +73,7 @@ public class ConfigParser implements IArgumentParser<Config> {
         }
 
         if (inputFiles.isEmpty()) {
-            throw new IllegalArgumentException("Не указаны входные файлы");
+            throw new IllegalArgumentException("No input files specified");
         }
 
         return new Config(outputPath, filePrefix, appendMode, shortStatistics, fullStatistics, inputFiles);

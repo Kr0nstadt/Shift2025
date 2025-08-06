@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 public class OverwriteFileWriter implements FileWriterData {
     @Override
     public void writeData(List<DataEntry> data, Config config) {
@@ -19,7 +20,6 @@ public class OverwriteFileWriter implements FileWriterData {
         Map<DataType, BufferedWriter> writers = new HashMap<>();
 
         try {
-            // Сначала создаем все необходимые писатели
             for (DataType type : DataType.values()) {
                 boolean hasDataForType = data.stream().anyMatch(e -> e.getType() == type);
                 if (hasDataForType) {
@@ -33,7 +33,6 @@ public class OverwriteFileWriter implements FileWriterData {
                 }
             }
 
-            // Затем записываем данные
             for (DataEntry entry : data) {
                 DataType type = entry.getType();
                 BufferedWriter writer = writers.get(type);
