@@ -4,9 +4,9 @@ import model.DataEntry;
 import model.FloatData;
 
 public class FloatStatistics extends BaseStatistics {
-    private double min = Double.MAX_VALUE;
-    private double max = Double.MIN_VALUE;
-    private double sum = 0;
+    double min = Double.MAX_VALUE;
+    double max = Double.MIN_VALUE;
+    double sum = 0;
 
     public FloatStatistics(boolean fullStatistics) {
         super(fullStatistics);

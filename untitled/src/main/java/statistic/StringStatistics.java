@@ -4,9 +4,9 @@ import model.DataEntry;
 import model.StringData;
 
 public class StringStatistics extends BaseStatistics {
-    private int minLength = Integer.MAX_VALUE;
-    private int maxLength = 0;
-    private int totalLength = 0;
+    int minLength = Integer.MAX_VALUE;
+    int maxLength = 0;
+    int totalLength = 0;
 
     public StringStatistics(boolean fullStatistics) {
         super(fullStatistics);
