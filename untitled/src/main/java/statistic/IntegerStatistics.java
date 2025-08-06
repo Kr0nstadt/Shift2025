@@ -25,9 +25,9 @@ public class IntegerStatistics extends BaseStatistics {
 
     @Override
     protected void printAdditionalStats() {
-        System.out.printf("Минимальное значение: %d%n", min);
-        System.out.printf("Максимальное значение: %d%n", max);
-        System.out.printf("Сумма: %d%n", sum);
-        System.out.printf("Среднее значение: %.2f%n", (double) sum / count);
+        System.out.printf("Minimum value: %d%n", min);
+        System.out.printf("Maximum value: %d%n", max);
+        System.out.printf("Sum: %d%n", sum);
+        System.out.printf("Average value: %.2f%n", (double) sum / count);
     }
 }

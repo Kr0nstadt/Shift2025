@@ -25,8 +25,8 @@ public class StringStatistics extends BaseStatistics {
 
     @Override
     protected void printAdditionalStats() {
-        System.out.printf("ƒлина самой короткой строки: %d%n", minLength);
-        System.out.printf("ƒлина самой длинной строки: %d%n", maxLength);
-        System.out.printf("—редн€€ длина строки: %.2f%n", (double) totalLength / count);
+        System.out.printf("Length of the shortest string: %d%n", minLength);
+        System.out.printf("Length of the longest string: %d%n", maxLength);
+        System.out.printf("Average string length: %.2f%n", (double) totalLength / count);
     }
 }

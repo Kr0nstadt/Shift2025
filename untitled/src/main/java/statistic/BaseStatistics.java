@@ -10,7 +10,7 @@ public abstract class BaseStatistics implements Statistics {
 
     @Override
     public void printStatistics() {
-        System.out.printf("Количество элементов: %d%n", count);
+        System.out.printf("Number of elements: %d%n", count);
         if (fullStatistics) {
             printAdditionalStats();
         }

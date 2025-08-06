@@ -25,10 +25,10 @@ public class FloatStatistics extends BaseStatistics {
 
     @Override
     protected void printAdditionalStats() {
-        System.out.printf("Минимальное значение: %.2f%n", min);
-        System.out.printf("Максимальное значение: %.2f%n", max);
-        System.out.printf("Сумма: %.2f%n", sum);
-        System.out.printf("Среднее значение: %.2f%n", sum / count);
+        System.out.printf("Minimum value: %.2f%n", min);
+        System.out.printf("Maximum value: %.2f%n", max);
+        System.out.printf("Sum: %.2f%n", sum);
+        System.out.printf("Average value: %.2f%n", sum / count);
     }
 }
 
