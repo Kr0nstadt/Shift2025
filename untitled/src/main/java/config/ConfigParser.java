@@ -69,7 +69,6 @@ public class ConfigParser implements ArgumentParser<Config> {
             } else if(arg.contains(".txt")) {
                 inputFiles.add(arg);
             }
-            else{continue;}
         }
 
         if (inputFiles.isEmpty()) {
