@@ -1,5 +1,5 @@
 package config;
 
-public interface IArgumentParser<T> {
+public interface ArgumentParser<T> {
     T parse() throws IllegalArgumentException;
 }

@@ -4,12 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import static org.example.Main.logger;
 
-public class ConfigParser implements IArgumentParser<Config> {
+public class ConfigParser implements ArgumentParser<Config> {
     private static final Set<String> VALID_FLAGS = Set.of("-o", "-p", "-a", "-s", "-f", "--");
     private final String[] args;
 
@@ -69,9 +66,10 @@ public class ConfigParser implements IArgumentParser<Config> {
                         fullStatistics = true;
                         break;
                 }
-            } else {
+            } else if(arg.contains(".txt")) {
                 inputFiles.add(arg);
             }
+            else{continue;}
         }
 
         if (inputFiles.isEmpty()) {

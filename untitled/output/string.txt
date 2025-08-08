@@ -3,6 +3,6 @@ Lorem ipsum dolor sit amet
 consectetur adipiscing -0.001
 тестовое задание
 Lorem ipsum dolor sit amet
-Пример
+Пример\8.9
 consectetur adipiscing -0.001
 тестовое задание
