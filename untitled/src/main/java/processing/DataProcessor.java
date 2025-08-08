@@ -19,6 +19,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+import static org.example.Main.logger;
+
 public class DataProcessor {
     private final Config config;
     private final DataEntryParser parser;
@@ -35,17 +37,27 @@ public class DataProcessor {
     }
 
     public void process() {
+        logger.info("Starting data processing");
         List<DataEntry> allEntries = readAllFiles();
+
         if (allEntries.isEmpty()) {
-            System.out.println("No data to process");
+            logger.warn("No data entries found in input files");
             return;
         }
 
+        logger.debug("Processing {} entries", allEntries.size());
         fileWriter.writeData(allEntries, config);
-        statisticsCollector.printStatistics(allEntries);
+
+        if (config.isShortStatistics() || config.isFullStatistics()) {
+            logger.info("Generating statistics");
+            statisticsCollector.printStatistics(allEntries);
+        }
+
+        logger.info("Data processing completed successfully");
     }
 
     private List<DataEntry> readAllFiles() {
+        logger.debug("Reading {} input files", config.getInputFiles().size());
         List<DataEntry> allEntries = new ArrayList<>();
         ExecutorService executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
         List<Future<List<DataEntry>>> futures = new ArrayList<>();

@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.example.Main.logger;
+
 public class ConcurrentFileReader implements DataFileReader {
     private final DataEntryParser parser;
 
@@ -18,7 +20,7 @@ public class ConcurrentFileReader implements DataFileReader {
 
     public List<DataEntry> readFile(String filePath) throws IOException {
         List<DataEntry> entries = new ArrayList<>();
-
+        logger.debug("Reading file: {}", filePath);
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -29,7 +31,10 @@ public class ConcurrentFileReader implements DataFileReader {
                 }
             }
         }
-
+        catch (IOException e) {
+            logger.error("Failed to read file: {}", filePath, e);
+            throw e;
+        }
         return entries;
     }
 }

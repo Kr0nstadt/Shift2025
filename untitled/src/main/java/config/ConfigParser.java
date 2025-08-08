@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public class ConfigParser implements IArgumentParser<Config> {
+import static org.example.Main.logger;
+
+public class ConfigParser implements ArgumentParser<Config> {
     private static final Set<String> VALID_FLAGS = Set.of("-o", "-p", "-a", "-s", "-f", "--");
     private final String[] args;
 
@@ -37,11 +39,8 @@ public class ConfigParser implements IArgumentParser<Config> {
                 }
 
                 if (!VALID_FLAGS.contains(arg)) {
-                    if (!isLikelyFilename(arg)) {
-                        throw new IllegalArgumentException("Unknown option: " + arg);
-                    }
-                    inputFiles.add(arg);
-                    continue;
+                    logger.error("Invalid flag encountered: {}", arg);
+                    throw new IllegalArgumentException("Unknown option: " + arg);
                 }
 
                 switch (arg) {
@@ -67,7 +66,7 @@ public class ConfigParser implements IArgumentParser<Config> {
                         fullStatistics = true;
                         break;
                 }
-            } else {
+            } else if(arg.contains(".txt")) {
                 inputFiles.add(arg);
             }
         }
