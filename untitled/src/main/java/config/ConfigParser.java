@@ -84,10 +84,4 @@ public class ConfigParser implements ArgumentParser<Config> {
         }
         return args[currentIndex + 1];
     }
-
-    private boolean isLikelyFilename(String arg) {
-        return arg.contains(".") &&
-                !arg.matches("^-\\w+$") &&
-                !arg.matches("^-\\d+$");
-    }
 }

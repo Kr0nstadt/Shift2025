@@ -22,10 +22,8 @@ public class Main {
         } catch (IllegalArgumentException e) {
             logger.error("Invalid arguments: {}", e.getMessage());
             printUsage();
-            System.exit(1);
         } catch (Exception e) {
             logger.error("Unexpected error occurred", e);
-            System.exit(2);
         }
     }
 

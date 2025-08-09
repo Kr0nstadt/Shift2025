@@ -43,7 +43,7 @@ class ConfigParserTest {
         Exception e = assertThrows(IllegalArgumentException.class,
                 () -> new ConfigParser(args).parse());
 
-        assertEquals("Нельзя использовать -s и -f одновременно", e.getMessage());
+        assertEquals("You can't use -s and -f at the same time.", e.getMessage());
     }
 
     @Test
@@ -52,15 +52,15 @@ class ConfigParserTest {
         Exception e = assertThrows(IllegalArgumentException.class,
                 () -> new ConfigParser(args).parse());
 
-        assertEquals("Не указан путь для -o", e.getMessage());
+        assertEquals("No path specified for -o", e.getMessage());
     }
 
     @Test
     void filesWithSpecialCharacters() {
-        String[] args = {"--file.txt", "-input.txt", "normal.txt"};
+        String[] args = {"file.txt", "input.txt", "normal.txt"};
         Config config = new ConfigParser(args).parse();
 
-        assertEquals(List.of("--file.txt", "-input.txt", "normal.txt"),
+        assertEquals(List.of("file.txt", "input.txt", "normal.txt"),
                 config.getInputFiles());
     }
 
@@ -82,10 +82,10 @@ class ConfigParserTest {
     }
     @Test
     void shouldAcceptDoubleDashFiles() {
-        String[] args = {"--special-file.txt", "normal.txt"};
+        String[] args = {"special-file.txt", "normal.txt"};
         Config config = new ConfigParser(args).parse();
 
-        assertEquals(List.of("--special-file.txt", "normal.txt"),
+        assertEquals(List.of("special-file.txt", "normal.txt"),
                 config.getInputFiles());
     }
 
@@ -118,17 +118,17 @@ class ConfigParserTest {
         Exception e = assertThrows(IllegalArgumentException.class,
                 () -> new ConfigParser(args).parse());
 
-        assertEquals("Не указаны входные файлы", e.getMessage());
+        assertEquals("No input files specified", e.getMessage());
     }
 
     @Test
     void shouldHandleMixedFileTypes() {
-        String[] args = {"-p", "pre_", "file1.txt", "--file2.txt", "-input.txt"};
+        String[] args = {"-p", "pre_", "file1.txt", "file2.txt", "input.txt"};
         Config config = new ConfigParser(args).parse();
 
         assertAll(
                 () -> assertEquals("pre_", config.getFilePrefix()),
-                () -> assertEquals(List.of("file1.txt", "--file2.txt", "-input.txt"),
+                () -> assertEquals(List.of("file1.txt", "file2.txt", "input.txt"),
                         config.getInputFiles())
         );
     }
@@ -139,7 +139,7 @@ class ConfigParserTest {
         Exception e = assertThrows(IllegalArgumentException.class,
                 () -> new ConfigParser(args).parse());
 
-        assertEquals("Неизвестная опция: -unknown", e.getMessage());
+        assertEquals("Unknown option: -unknown", e.getMessage());
     }
 
     @Test
@@ -151,7 +151,7 @@ class ConfigParserTest {
         args[2] = "/out";
 
         Config config = new ConfigParser(args).parse();
-        assertEquals(97, config.getInputFiles().size()); // 100 - 3 флага
+        assertEquals(97, config.getInputFiles().size());
     }
 
     @Test

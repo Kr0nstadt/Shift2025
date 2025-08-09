@@ -47,7 +47,10 @@ OS:           Windows 11 10.0 amd64
 В открывшемся окне укажите:
 
 - Основной класс (Main class)
-- Аргументы командной строки
+- Аргументы командной строки\
+
+Например :
+java -jar u l.jar -s -a -p sample- in1.txt in2.txt 
 
 
 ![alt text](./img/image3.png)
